@@ -40,7 +40,7 @@ var filter = function(filenames){
 	})
 });*/
 
-var mymodule = require('./mymodule.js'); //the .js can be omitted
+/*var mymodule = require('./mymodule.js'); //the .js can be omitted
 var printList = function(err, list){
 	if (err) console.error("------ERROR: ", err);
 	else {
@@ -49,4 +49,14 @@ var printList = function(err, list){
 		}) 
 	}
 }
-mymodule(process.argv[2], process.argv[3], printList);
+mymodule(process.argv[2], process.argv[3], printList);*/
+
+/*var http_mod = require('http');
+var url = process.argv[2];
+function callback (response){
+	response.on("data", function(data){
+		console.log(data.toString());
+	})
+	response.on("error", console.error)
+}
+http_mod.get(url, callback);*/
