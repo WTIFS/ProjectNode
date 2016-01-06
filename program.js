@@ -1,4 +1,4 @@
-/**
+/*
  * Created by Yuanfei on 2015/12/28.
  */
 /*console.log("HELLO WORLD");*/
@@ -54,9 +54,94 @@ mymodule(process.argv[2], process.argv[3], printList);*/
 /*var http_mod = require('http');
 var url = process.argv[2];
 function callback (response){
+	response.setEncoding('utf8')
 	response.on("data", function(data){
 		console.log(data.toString());
 	})
 	response.on("error", console.error)
 }
 http_mod.get(url, callback);*/
+
+/*var http_mod = require('http');
+var bl_mod = require('bl');
+var url = process.argv[2];
+function callback (response){
+	response.pipe(bl_mod(function(err, data){
+		if (err) console.error(err);
+		else {
+			console.log(data.length);
+			console.log(data.toString());
+		}
+	}))
+}
+http_mod.get(url, callback);*/
+
+var http_mod = require('http');
+var bl_mod = require('bl');
+var dict = new Array();
+var count = 0;
+
+//无效的for
+/*for (var i=0; i<3; i++){
+	console.log(i)
+	http_mod.get(process.argv[2+i], function(response){
+		console.log(i)//i固定成了3
+		response.pipe(bl_mod(function(err, data){
+			if (err) return console.error(err);
+			else {
+				dict[i] = data.toString();
+				count++;
+				if (count==3)
+					for (var j=0; j<3; j++)
+						console.log(dict[j]);
+			}
+		}));		
+	});	
+}*/
+
+//错误顺序
+/*function callback (response){
+	response.pipe(bl_mod(function(err, data){
+		if (err) console.error(err);
+		else {
+			dict[count++] = data.toString();
+			if (count==3)
+				for (var i=0; i<3; i++)
+					console.log(dict[i]);
+		}
+	}));
+}
+http_mod.get(process.argv[2], callback);
+http_mod.get(process.argv[3], callback);
+http_mod.get(process.argv[4], callback);*/
+
+/*function httpGet(index){
+	http_mod.get(process.argv[index+2], function(response){
+		response.pipe(bl_mod(function(err, data){
+			if (err) return console.error(err);
+			else {
+				dict[index] = data.toString();
+				count++;
+				if (count==3)
+					for (var j=0; j<3; j++)
+						console.log(dict[j]);
+			}
+		}));		
+	})
+}
+for (var i=0; i<3; i++) httpGet(i)*/
+
+var zeroFill = function(i){
+	return (i<10 ? '0':'') + i; 
+}
+
+var net_mod = require('net')
+net_mod.createServer(function (socket){
+	var date = new Date()
+	var date_format = date.getFullYear() + '-'
+					+ zeroFill(date.getMonth() + 1) + '-'
+					+ zeroFill(date.getDate()) + ' '
+					+ zeroFill(date.getHours()) + ':'
+					+ zeroFill(date.getMinutes());
+	socket.end(date_format + '\n')
+}).listen(process.argv[2])
