@@ -1,6 +1,13 @@
 /*
  * Created by Yuanfei on 2015/12/28.
  */
+
+var http_mod = require('http');
+var bl_mod = require('bl');
+var fs_mod = require('fs');
+var dict = new Array();
+var count = 0;
+
 /*console.log("HELLO WORLD");*/
 
 //console.log(process.argv);
@@ -76,10 +83,6 @@ function callback (response){
 }
 http_mod.get(url, callback);*/
 
-var http_mod = require('http');
-var bl_mod = require('bl');
-var dict = new Array();
-var count = 0;
 
 //无效的for
 /*for (var i=0; i<3; i++){
@@ -131,7 +134,7 @@ http_mod.get(process.argv[4], callback);*/
 }
 for (var i=0; i<3; i++) httpGet(i)*/
 
-var zeroFill = function(i){
+/*var zeroFill = function(i){
 	return (i<10 ? '0':'') + i; 
 }
 
@@ -144,4 +147,10 @@ net_mod.createServer(function (socket){
 					+ zeroFill(date.getHours()) + ':'
 					+ zeroFill(date.getMinutes());
 	socket.end(date_format + '\n')
-}).listen(process.argv[2])
+}).listen(process.argv[2])*/
+
+http_mod.createServer(function(req, response){
+	res.writeHead(200, { 'content-type': 'text/plain' })
+	//src.pipe(des) src输出流至destination
+	fs_mod.createReadStream(process.argv[3]).pipe(response);
+}).listen(process.argv[2]);
