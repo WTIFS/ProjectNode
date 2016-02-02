@@ -149,8 +149,19 @@ net_mod.createServer(function (socket){
 	socket.end(date_format + '\n')
 }).listen(process.argv[2])*/
 
-http_mod.createServer(function(req, response){
+//编写一个 HTTP 文件 **服务器**，它用于将每次所请求的文件返回给客户端。
+/*http_mod.createServer(function(req, response){
 	res.writeHead(200, { 'content-type': 'text/plain' })
 	//src.pipe(des) src输出流至destination
 	fs_mod.createReadStream(process.argv[3]).pipe(response);
+}).listen(process.argv[2]);*/
+
+http_mod.createServer(function(req, res){
+	if (req.method!=='POST')
+		return res.end('SEND ME A POST');
+	var map = require('through2-map');
+	req.pipe(map(function(chunk){
+		return chunk.toString().toUpperCase();
+	})).pipe(res);
+
 }).listen(process.argv[2]);
