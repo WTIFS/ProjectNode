@@ -156,12 +156,43 @@ net_mod.createServer(function (socket){
 	fs_mod.createReadStream(process.argv[3]).pipe(response);
 }).listen(process.argv[2]);*/
 
-http_mod.createServer(function(req, res){
+//编写一个 HTTP **服务器**，它只接受 POST 形式的请求，并且将 POST 请求主体（body）所带的字符转换成大写形式，然后返回给客户端。
+/*http_mod.createServer(function(req, res){
 	if (req.method!=='POST')
 		return res.end('SEND ME A POST');
 	var map = require('through2-map');
 	req.pipe(map(function(chunk){
 		return chunk.toString().toUpperCase();
 	})).pipe(res);
+
+}).listen(process.argv[2]);*/
+
+
+//编写一个 HTTP **服务器**，每当接收到一个路径为 '/api/parsetime' 的 GET 请求的时候，响应一些 JSON 数据。我们期望请求会包含一个查询参数（query string），key 是 "iso"，值是 ISO 格式的时间。
+function parse(time){
+	var datetime = {
+		hour: time.getHours(),
+		minute: time.getMinutes(),
+		second: time.getSeconds()
+	}
+	return datetime;
+}
+
+http_mod.createServer(function(req, res){
+	var url_mod = require("url");
+	var urlParams = url_mod.parse(req.url)
+	var time = new Date(urlParams.query.iso);
+	var result;
+	console.log(urlParams);
+	if (urlParams.pathname=='/api/parsetime'){
+		result = parse(time);
+	}
+	else if (urlParams.pathname=='/api/unixtime'){
+		result = {unixtime: time.getTime()};
+	}
+	if (result){
+		res.writeHead(200, { 'Content-Type': 'application/json' })
+		res.end(JSON.stringify(result));
+	}
 
 }).listen(process.argv[2]);
