@@ -8,10 +8,10 @@ BaseDao.prototype.init = function(){
 };
 BaseDao.prototype.createPool = function(){
 	this.pool = mysql.createPool({  
-	    host: 'localhost',  
+	    host: '127.0.0.1',  
 	    user: 'root',  
 	    password: 'root',  
-	    database: 'yunkong',  
+	    database: 'playground',  
 	    port: 3306  
 	});
     
@@ -20,12 +20,10 @@ BaseDao.prototype.query = function(sql,sqlParams,callback){
 	var _that = this;
 	this.pool.getConnection(function(err,conn){  
         if(err){  
-        	_that.logger.error("数据库连接创建失败："+err.message);
             callback(err,null,null);  
         }else{  
             conn.query(sql,sqlParams,function(err, rows, fields){
             	if(err){
-            		_that.logger.error("sql语句执行失败："+err.message);
             		callback(err,null);
             	}else{
             		callback(err,rows,fields); 
@@ -37,5 +35,20 @@ BaseDao.prototype.query = function(sql,sqlParams,callback){
     });  
 };
 
+//带connection的query，用于transaction
+BaseDao.prototype.queryWithConn = function(sql, sqlParams, callback, conn){
+    if (!conn) this.query(sql, sqlParams, callback);
+    else {
+        var that = this;
+        conn.query(sql, sqlParams, function (err, rows, fields) {
+            if (err) {
+                callback(err, null);
+            } else {
+                console.log(sql);
+                callback(err, rows, fields);
+            }
+        });
+    }
+};
 
 module.exports = new BaseDao();
