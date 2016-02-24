@@ -1,5 +1,11 @@
 var baseDao = require("./baseDao");
 var async = require("async");
+
+var callback = function(err, rows){
+    if (err) console.log("------ERROR: " + err);
+    else console.log("-------TEST RESULT: " + JSON.stringify(rows, null, 2));
+};
+
 /*var sql = "SELECT * FROM yk_channel";
 baseDao.query(sql, [], function(err, rows){
 	console.log(rows);
@@ -17,6 +23,7 @@ baseDao.query(sql, [params, 99], function(err, rows){
 	console.log(rows);
 });*/
 
+//并行回滚测试
 /*baseDao.pool.getConnection(function(err, conn) {
 	if (err) {
 		console.log(err);
@@ -31,38 +38,34 @@ baseDao.query(sql, [params, 99], function(err, rows){
 		async.auto({
 			func1: function(done){
 				var sql = "INSERT INTO playground SET district=1";
-				baseDao.queryWithConn(sql, [], function(err, rows){
-					done(err, rows);
-				}, conn);
+				baseDao.query(sql, [], done, conn);
+				//done(Error("shit"));
 			},
 			func2: function(done){
-				var sql = "INSERT INTO playground SET district=2";
-				baseDao.queryWithConn(sql, [], function(err, rows){
-					done(err, rows);
-				}, conn);
+				var sql = "INSERT INTO errorinfo SET info='2'";
+				baseDao.query(sql, [], done, conn);
+				//done("shit");
 			},
 			func3: function(done){
-				var sql = "INSERT INTO playground SET district=3";
-				baseDao.queryWithConn(sql, [], function(err, rows){
-					done(err, rows);
-				}, conn);
+				var sql = "INSERT INTO playground SET district=3asdf";
+				baseDao.query(sql, [], done, conn);
 			},
 			func4: function(done){
 				var sql = "INSERT INTO playground SET district=4";
-				baseDao.queryWithConn(sql, [], function(err, rows){
-					done(err, rows);
-				}, conn);
+				baseDao.query(sql, [], done, conn);
 			},
 			func5: function(done){
-				var sql = "INSERT INTO playground SET district=15";
-				baseDao.queryWithConn(sql, [], function(err, rows){
-					done(err, rows);
-				}, conn);
+				var sql = "INSERT INTO playground SET district=5";
+				baseDao.query(sql, [], done, conn);
+			},
+			func6: function(done){
+				done(Error("shit2"));
 			}
 		}, function(err, results){
-			if (!err) conn.commit(function(err){
+			if (!err) {conn.commit(function(err){
 				if (!err){console.log(JSON.stringify(results, null, 2));}
-            });
+            })
+		}
 			else {
 				conn.rollback();
                 console.log("ROLL BACK. " + err);
@@ -80,3 +83,10 @@ baseDao.query(sql, params, function(err, rows){
 		console.log(JSON.stringify(rows));
 	else console.log(err);
 })*/
+
+/*var params = [[1],[2]];
+var sql = "INSERT INTO playground (district) VALUES ?";
+baseDao.query(sql, [params], callback);*/
+
+var sql = "INSERT INTO playground SET district=1; INSERT INTO playground SET district=2";
+baseDao.query(sql, [], callback);

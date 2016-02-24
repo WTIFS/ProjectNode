@@ -8,5 +8,14 @@ var d2 = moment().subtract(11,"days").format("YYYY-MM-DD");
 console.log(d2);
 
 var d3 = null;
-d3 ||=  d2;
 console.log(d3);
+
+try{
+	console.log(moment(null).isValid());//false
+	console.log(moment("").isValid());//false
+	var d4 = moment(0).format("YYYY-MM-DD HH:mm");
+	console.log(d4);
+}
+catch(err){
+	console.log(err);
+}
