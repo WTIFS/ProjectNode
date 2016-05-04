@@ -1,0 +1,28 @@
+{
+  "name": "ProjectNode",
+  "version": "0.0.0",
+  "author": "WTIFS",
+  "description": "node ‘ÀÆ",
+  "private": true,
+  "respository": {
+    "type": "git",
+    "url": ""
+  },
+  "contributors": [
+    {
+      "name": "WTIFW",
+      "email": "da_tou@126.com"
+    }
+  ],
+  "engines": {
+    "node": "4.2.1"
+  },
+  "scripts": {
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "async": "^1.5.0",
+    "jws": "^3.1.3",
+    "base64url": "^1.0.6"
+  }
+}
