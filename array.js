@@ -9,3 +9,6 @@ console.log("2" in brr);//false
 
 if (arr.indexOf(40)>-1) console.log("a");
 else console.log("b");
+
+brr[5] = "fff";
+console.log(brr);
