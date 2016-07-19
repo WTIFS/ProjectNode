@@ -1,5 +1,11 @@
 var async = require('async');
 var util = require('util');
+
+function callback(err, results) {
+    console.log(err);
+    console.log(JSON.stringify(results));
+}
+
 /*async.auto({  
     func1: function (done) {  
         done(null, 1, 5);  
@@ -40,6 +46,7 @@ var util = require('util');
 
 ffor();*/
 
+/*
 var arr = [1,2,3,4];
 async.forEach(arr, function(item, done2){
     console.log(item);
@@ -50,4 +57,14 @@ async.forEach(arr, function(item, done2){
     if (err) console.log(err);
     //else console.log("done");
     console.log(arr);
-});
+});*/
+
+var errFlag = false;
+async.series({
+    a: function(done) {
+        for (var i=0; i<5 && !errFlag; i++) {
+            errFlag = true;
+            done(Error(i));
+        }
+    }
+}, callback);
