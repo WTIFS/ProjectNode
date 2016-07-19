@@ -88,5 +88,13 @@ baseDao.query(sql, params, function(err, rows){
 var sql = "INSERT INTO playground (district) VALUES ?";
 baseDao.query(sql, [params], callback);*/
 
-var sql = "INSERT INTO playground SET district=1; INSERT INTO playground SET district=2";
-baseDao.query(sql, [], callback);
+/*var sql = "INSERT INTO playground SET district=1; INSERT INTO playground SET district=2";
+baseDao.query(sql, [], callback);*/
+
+/*var sql = "SELECT * FROM yk_bill_grant WHERE borrower_bank_name ?";
+baseDao.query(sql, ["IS NOT NULL"],
+    callback);
+*/
+
+var sql = "SELECT ?? FROM yk_bill WHERE id=?";
+baseDao.query(sql, ["customer_name", 1], callback);

@@ -47,7 +47,7 @@ var filter = function(filenames){
 	})
 });*/
 
-/*var mymodule = require('./mymodule.js'); //the .js can be omitted
+var mymodule = require('./mymodule.js'); //the .js can be omitted
 var printList = function(err, list){
 	if (err) console.error("------ERROR: ", err);
 	else {
@@ -56,7 +56,7 @@ var printList = function(err, list){
 		}) 
 	}
 }
-mymodule(process.argv[2], process.argv[3], printList);*/
+mymodule(process.argv[2], process.argv[3], printList);
 
 /*var http_mod = require('http');
 var url = process.argv[2];
@@ -169,7 +169,7 @@ net_mod.createServer(function (socket){
 
 
 //编写一个 HTTP **服务器**，每当接收到一个路径为 '/api/parsetime' 的 GET 请求的时候，响应一些 JSON 数据。我们期望请求会包含一个查询参数（query string），key 是 "iso"，值是 ISO 格式的时间。
-function parse(time){
+/*function parse(time){
 	var datetime = {
 		hour: time.getHours(),
 		minute: time.getMinutes(),
@@ -195,4 +195,4 @@ http_mod.createServer(function(req, res){
 		res.end(JSON.stringify(result));
 	}
 
-}).listen(process.argv[2]);
+}).listen(process.argv[2]);*/

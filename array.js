@@ -9,3 +9,8 @@ console.log("2" in brr);//false
 
 if (arr.indexOf(40)>-1) console.log("a");
 else console.log("b");
+
+var a = [1,2];
+arr[2] = a;
+arr[2] = [3];
+console.log(a);
