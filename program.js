@@ -5,6 +5,7 @@
 var http_mod = require('http');
 var bl_mod = require('bl');
 var fs_mod = require('fs');
+
 var dict = new Array();
 var count = 0;
 
@@ -17,6 +18,15 @@ var sum = 0;
 for (var i=2; i<args.length; i++)
     sum += +args[i];
 console.log(sum);*/
+
+var moment = require("moment");
+console.log(moment().format("YYYY-MM-DD HH:mm:ss"));
+
+
+var helloModule = require("./helloModule");
+helloModule.hello();
+helloModule.sum(1, 2);
+
 
 /*var fs = require('fs');
 var file_path = process.argv[2];
