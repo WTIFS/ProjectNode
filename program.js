@@ -1,5 +1,5 @@
-/*
- * Created by Yuanfei on 2015/12/28.
+
+ /* Created by Yuanfei on 2015/12/28.
  */
 
 var http_mod = require('http');
@@ -19,14 +19,59 @@ for (var i=2; i<args.length; i++)
     sum += +args[i];
 console.log(sum);*/
 
-var moment = require("moment");
-console.log(moment().format("YYYY-MM-DD HH:mm:ss"));
+// var moment = require("moment");
+// console.log(moment().format("YYYY-MM-DD HH:mm:ss"));
 
 
-var helloModule = require("./helloModule");
-helloModule.hello();
-helloModule.sum(1, 2);
+// var helloModule = require("./helloModule");
+// helloModule.hello();
+// helloModule.sum(1, 2);
 
+var fs = require("fs");
+
+var filePath1 = "async.js";
+var filePath2 = "helloModule.js";
+
+console.time("1");
+var buffer1 = fs.readFileSync(filePath1).toString();
+var buffer2 = fs.readFileSync(filePath2).toString();
+console.timeEnd("1");
+
+// var callback = funtion(err, content) {
+// 	console.log();
+// });
+// fs.readFile(filePath1, 'utf8', function(err, content) {
+// 	console.log();
+// });
+// fs.readFile(filePath2, 'utf8', function(err, content) {
+
+// });
+
+// for (var i=1; i<=3; i++) {
+// 	console.log("i1: " + i);
+// 	fs.readFile(i + ".txt", 'utf-8', function(err, content) {
+// 		console.log("i2: " + i);
+// 		console.log(content);
+// 	});
+// }
+
+/*function read(i) {
+	console.log("i1: " + i);
+	fs.readFile(i + ".txt", 'utf-8', function(err, content) {
+		console.log("i2: " + i);
+		console.log(content);
+	});
+}
+for (var j=1; j<=3; j++) read(j);*/
+
+//异步for循环 async.forEach
+// var async = require("async");
+// async.forEach(list, function(item, done) {
+//     //操作item
+//     done(); //通知for本循环完成
+// }, function(err){
+//     //for之后执行的函数
+// });
 
 /*var fs = require('fs');
 var file_path = process.argv[2];
@@ -57,16 +102,16 @@ var filter = function(filenames){
 	})
 });*/
 
-var mymodule = require('./mymodule.js'); //the .js can be omitted
-var printList = function(err, list){
-	if (err) console.error("------ERROR: ", err);
-	else {
-		list.forEach(function(entry){
-			console.log(entry);
-		}) 
-	}
-}
-mymodule(process.argv[2], process.argv[3], printList);
+// var mymodule = require('./mymodule.js'); //the .js can be omitted
+// var printList = function(err, list){
+// 	if (err) console.error("------ERROR: ", err);
+// 	else {
+// 		list.forEach(function(entry){
+// 			console.log(entry);
+// 		}) 
+// 	}
+// }
+// mymodule(process.argv[2], process.argv[3], printList);
 
 /*var http_mod = require('http');
 var url = process.argv[2];
@@ -205,4 +250,5 @@ http_mod.createServer(function(req, res){
 		res.end(JSON.stringify(result));
 	}
 
-}).listen(process.argv[2]);*/
+}).listen(process.argv[2]);
+*/
