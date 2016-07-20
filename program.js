@@ -27,25 +27,53 @@ console.log(sum);*/
 // helloModule.hello();
 // helloModule.sum(1, 2);
 
+// function log(argv) {
+// 	console.log(argv);
+// }
+
+// function hello(argv) {
+// 	console.log("hello " + argv + "!");
+// }
+
+// function sum(num1, num2, callback) {
+// 	var sum = num1 + num2;
+// 	callback(sum);
+// }
+
+// sum(1, 2, log);
+// sum(1, 2, hello);
+
 var fs = require("fs");
 
-var filePath1 = "async.js";
-var filePath2 = "helloModule.js";
+var filePath1 = "1.txt";
+var filePath2 = "2.txt";
 
 console.time("1");
 var buffer1 = fs.readFileSync(filePath1).toString();
+console.log(buffer1.substr(0, 10));
+console.timeEnd("1\n");
+
+console.time("2");
 var buffer2 = fs.readFileSync(filePath2).toString();
-console.timeEnd("1");
+console.log(buffer2.substr(0, 10));
+console.timeEnd("2\n");
 
-// var callback = funtion(err, content) {
-// 	console.log();
-// });
-// fs.readFile(filePath1, 'utf8', function(err, content) {
-// 	console.log();
-// });
-// fs.readFile(filePath2, 'utf8', function(err, content) {
+console.time("3");
+console.time("4");
+console.time("5");
+var callback = function(err, content) {
+	console.log();
+};
 
-// });
+fs.readFile(filePath1, 'utf8', function(err, content) {
+	console.log(content.substr(0, 10));
+	console.timeEnd("3\n");
+});
+fs.readFile(filePath2, 'utf8', function(err, content) {
+	console.log(content.substr(0, 10));
+	console.timeEnd("4\n");
+});
+console.timeEnd("5\n");
 
 // for (var i=1; i<=3; i++) {
 // 	console.log("i1: " + i);
