@@ -2,7 +2,7 @@
   "name": "ProjectNode",
   "version": "0.0.0",
   "author": "WTIFS",
-  "description": "nodeÊÔË®",
+  "description": "nodeï¿½ï¿½Ë®",
   "private": true,
   "respository": {
     "type": "git",
@@ -22,7 +22,8 @@
   },
   "dependencies": {
     "async": "^1.5.0",
+    "base64url": "^1.0.6",
     "jws": "^3.1.3",
-    "base64url": "^1.0.6"
+    "moment": "^2.14.1"
   }
 }
