@@ -10,39 +10,42 @@ function callback(err, results) {
 //串行 无关联 async.series
 //函数依次执行，后面不需要调前面步骤的结果
 
-// async.series(
-//     { 
-//         func1: function(done){
-//             //done(err, 参数): 将参数写入results.func1
-//             //TODO: 处理数据
-//             done(err, 处理结果) //results.func1 = 处理结果
-//             done(err, 处理结果1, 处理结果2) //表现为数组，results.func1 = [处理结果1, 处理结果2]
-//         }, 
-//         func2: function(done){ 
-//             //TODO: 处理数据
-//             done(err, 处理结果)
-//         }, 
-//     },
-//     function(error, results){ 
-//         //results.func1 = 处理结果1, results.func2 = 处理结果2...
-//     }
-// });
+/*async.series(
+    { 
+        func1: function(done){
+            //done(err, 参数): 将参数写入results.func1
+            //TODO: 处理数据
+            done(err, 处理结果) //results.func1 = 处理结果
+            done(err, 处理结果1, 处理结果2) //表现为数组，results.func1 = [处理结果1, 处理结果2]
+        }, 
+        func2: function(done){ 
+            //TODO: 处理数据
+            done(err, 处理结果)
+        }, 
+    },
+    function(error, results){ 
+        //results.func1 = 处理结果1, results.func2 = 处理结果2...
+    }
+);
 
-// async.auto(
-//     {
-//         func1: function(done){
-//             done(err, 要写入func1的结果)
-//         }, 
-//         func2: ["func1", function(done, results){ //依赖func1
-//             //results = {func1: xxx};
-//             done(err, 返回结果)
-//         }],
-//         func3: ["func2", function(done, results){
-//         }]
-//     }, function(error, results){ 
-//         results = {func1: xxx, func2: xxx, func3: xxx};
-//     }
-// });
+async.auto(
+    {
+        func1: function(done){
+            //TODO: 处理数据
+            done(err, 要写入func1的结果)
+        }, 
+        func2: ["func1", function(done, results){ //依赖func1
+            //results = {func1: xxx};
+            //TODO: 处理数据
+            done(err, 返回结果)
+        }],
+        func3: ["func1", function(done, results){
+            //TODO: 处理数据
+        }]
+    }, function(error, results){ 
+        results = {func1: xxx, func2: xxx, func3: xxx};
+    }
+);*/
 
 // async.auto({  
 //     func1: function (done) {  
@@ -67,7 +70,7 @@ function callback(err, results) {
 var async = require("async");
 async.series({
     func1: function(done){
-        done(null, "ha", "q");
+        done("asdf", "ha", "q");
     },
     func2: function(done){
         done(null, 2);
@@ -75,7 +78,7 @@ async.series({
 }, function(err, results){
     if (!err) console.log(JSON.stringify(results));
     else console.log(err);
-})
+});
 
 /*var ffor = function(){
     for (var i=0; i<10; i++)

@@ -23,57 +23,75 @@ console.log(sum);*/
 // console.log(moment().format("YYYY-MM-DD HH:mm:ss"));
 
 
-// var helloModule = require("./helloModule");
-// helloModule.hello();
-// helloModule.sum(1, 2);
+var helloModule = require("./helloModule");
+helloModule.hello();
+helloModule.sum(1, 2);
 
-// function log(argv) {
-// 	console.log(argv);
-// }
+/*function log(argv) {
+	console.log(argv);
+}
 
-// function hello(argv) {
-// 	console.log("hello " + argv + "!");
-// }
+function hello(argv) {
+	console.log("hello " + argv + "!");
+}
 
-// function sum(num1, num2, callback) {
-// 	var sum = num1 + num2;
-// 	callback(sum);
-// }
+function sum(num1, num2, callback) {
+	var sum = num1 + num2;
+	callback(sum);
+}
 
-// sum(1, 2, log);
-// sum(1, 2, hello);
+sum(1, 2, hello);
+sum(1, 2, function(argv) {
+	console.log("hello " + argv + "!");
+})
+*/
+//sum(1, 2, log);
 
-var fs = require("fs");
 
-var filePath1 = "1.txt";
-var filePath2 = "2.txt";
+// var fs = require("fs");
 
-console.time("1");
-var buffer1 = fs.readFileSync(filePath1).toString();
-console.log(buffer1.substr(0, 10));
-console.timeEnd("1\n");
+// var filePath1 = "1.txt";
+// var filePath2 = "2.txt";
 
-console.time("2");
-var buffer2 = fs.readFileSync(filePath2).toString();
-console.log(buffer2.substr(0, 10));
-console.timeEnd("2\n");
+// var fs = require("fs");
+// fs.readFile("1.txt", 'utf8', function(err, content1) {
+// 	if (!err) {
+// 		console.log(content1);
+// 		fs.readFile("2.txt", 'utf8', function(err, content2) {
+// 			if (!err) {
+// 				console.log(content2);
+// 			} 
+// 		});
+// 	}
+// })
 
-console.time("3");
-console.time("4");
-console.time("5");
-var callback = function(err, content) {
-	console.log();
-};
+// console.time("1");
+// var buffer1 = fs.readFileSync(filePath1).toString();
+// console.log(buffer1.substr(0, 10));
+// console.timeEnd("1");
 
-fs.readFile(filePath1, 'utf8', function(err, content) {
-	console.log(content.substr(0, 10));
-	console.timeEnd("3\n");
-});
-fs.readFile(filePath2, 'utf8', function(err, content) {
-	console.log(content.substr(0, 10));
-	console.timeEnd("4\n");
-});
-console.timeEnd("5\n");
+// console.time("2");
+// var buffer2 = fs.readFileSync(filePath2).toString();
+// console.log(buffer2.substr(0, 10));
+// console.timeEnd("2");
+// console.timeEnd("1");
+
+// console.time("3");
+// console.time("4");
+// console.time("5");
+// var callback = function(err, content) {
+// 	console.log();
+// };
+
+// fs.readFile(filePath1, 'utf8', function(err, content) {
+// 	console.log(content.substr(0, 10));
+// 	console.timeEnd("3");
+// });
+// fs.readFile(filePath2, 'utf8', function(err, content) {
+// 	console.log(content.substr(0, 10));
+// 	console.timeEnd("4");
+// });
+// console.timeEnd("5");
 
 // for (var i=1; i<=3; i++) {
 // 	console.log("i1: " + i);
